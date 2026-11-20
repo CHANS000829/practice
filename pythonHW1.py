@@ -126,91 +126,62 @@ print(successcount, failcount)
 
 # 1 - 3 
 
-# 1 
+houses = [[1, 34, 5, 5.0], [2, 25, 5, 2.5], [3, 30, 2, 4.0], [4, 38, 20, 3.0]]
 
-houses_test = houses.copy()
+# 1
+houses_test = []
+for house in houses:
+    houses_test.append({"ID": house[0], "size": house[1], "year": house[2], "price": house[3]})
 
-houses_test.extend([{"ID": 101, "year": 5, "price": 3},  # size 키 없음
-{"ID": 102, "size": 35, "year": 5, "price": None},  # 값 없음
-{"ID": 103, "size": "오류", "year": 5, "price": 3},  # 숫자로 변환할 수 없음
-{"ID": 104, "size": 35, "year": 5, "price": 3}]) # 정상 데이터)
+houses_test.extend([
+    {"ID": 101, "year": 5, "price": 3},  # size 키 없음
+    {"ID": 102, "size": 35, "year": 5, "price": None},  # 값 없음
+    {"ID": 103, "size": "오류", "year": 5, "price": 3},  # 숫자로 변환할 수 없음
+    {"ID": 104, "size": 35, "year": 5, "price": 3}  # 정상 데이터
+])
 
-
-# 2, 3
-
-for house in houses_test:
-
-  if 'size' not in house:
-    print("제외사유: size 키가 없습니다")
-    continue
-
-  if 'price' not in house:
-    print("제외사유: price 키가 없습니다")
-    continue
-
-  if house['price'] is None:
-    print("제외사유: 값이 없습니다")
-    continue
-
-  if house['size'] is None:
-    print("제외사유: 값이 없습니다")
-    continue
-    
-  try:
-    int(house['size'])
-
-  except ValueError as e:
-    print("제외사유: 숫자로 변환할 수 없습니다")
-    continue
-
-  # 4 
-
-for house in houses_test:
-    if house['size']<=0 or house['price']<0:
-      print(house, "->제외")
-      continue
-
-
-# 5 
-
+# 2, 3, 4, 5 (하나의 반복문으로 통합)
 selected = []
 
 for house in houses_test:
-   if (house['size']>=30) and (house['price']<=4):
-      selected.append(house)
-      
-      
+    if 'size' not in house:
+        print("제외사유: size 키가 없습니다")
+        continue
+
+    if 'price' not in house:
+        print("제외사유: price 키가 없습니다")
+        continue
+
+    if house['price'] is None:
+        print("제외사유: 값이 없습니다")
+        continue
+
+    if house['size'] is None:
+        print("제외사유: 값이 없습니다")
+        continue
+
+    try:
+        house['size'] = int(house['size'])
+    except ValueError:
+        print("제외사유: 숫자로 변환할 수 없습니다")
+        continue
+
+    if house['size'] <= 0 or house['price'] < 0:
+        print(house, "->제외")
+        continue
+
+    if house['size'] >= 30 and house['price'] <= 4:
+        selected.append(house)
+
 # 6
-
- 
 for house in selected:
-   print(house['ID'])
+    print(house['ID'])
 
-
-# 7 
-
+# 7
 print(len(selected))
 
 
 
-
-
-# 1- 4 
-
-# 1, 2, 3
-  
-try:
-
-    def unit_price(price,size):
-        price=float(price)
-        size=float(size)
-        if (size <= 0) | (price<0):
-            return None
-        else: 
-            return price / size
-
-except:
-    print("size가 0이하이거나 가격이 음수입니다.")
 
 
 # 1- 4 
@@ -226,7 +197,7 @@ def unit_price(price, size):
 def unit_price(price, size):
    price = float(price)
    size = float(size)
-   if (size<=0):
+    if (size<=0):
       print("크기가 0이하입니다.")
       return None
     if (price<0):
@@ -326,6 +297,8 @@ for i in houses:
     ID = i[0]
     PRICE = i[3]
     ID_PRICE[ID] = PRICE
+
+print(ID_PRICE[3])
 
 
 # 4 
